@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title%}{{ title }}{% endblock %}
+{% block content %}
+    <main>
+        {% for task in tasks%}
+        <div class="date">{{ task.date }}</div>
+        <div class="task">
+            <h2>by {{ task.author }} to {{ task.receiver}} </h2>
+            <h3>{{ task.name }}</h3>
+            <p>{{ task.description|truncatewords:50 }}</p>
+            <div class="buttons">
+                {% if user.is_authenticated %}
+                <a href = "{{ task.get_absolute_url }}">Читать дальше</a>
+                {% if task.author == user.id %}
+                <button>Редактировать</button>
+                <button>Удалить</button>
+                {% endif %}
+                <button>Завершил</button>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        <!-- Добавьте другие задачи и даты здесь -->
+    </main>
+{% endblock %}

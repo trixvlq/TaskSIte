@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href = "{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Task Manager</h1>
+        <ul>
+            <li><a href="#">Мои посты</a></li>
+            <li><a href="#">Мои запросы</a></li>
+            <li><a href="{% url 'AddTask' %}">Добавить пост</a></li>
+            <li><a href="#">Уведомления</a></li>
+            {% if not user.is_authenticated%}
+            <li><a href="{% url 'Registration'%}">Регистрация</a></li>
+            <li><a href="{% url 'Login' %}">Войти</a></li>
+            {% else %}
+            <li><a href="{% url 'Logout' %}">Выйти</a></li>
+            {% endif %}
+        </ul>
+    </header>
+{% block content %}
+{% endblock %}
+    <footer>
+        &copy; 2023 Task Manager App
+    </footer>
+</body>
+</html>
