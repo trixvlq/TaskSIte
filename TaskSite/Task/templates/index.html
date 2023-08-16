@@ -15,7 +15,9 @@
                 <button>Редактировать</button>
                 <button>Удалить</button>
                 {% endif %}
-                <button>Завершил</button>
+                {% if used.id == task.receiver %}
+                <a href = "{{ task.confirm_task }}">Завершил</a>
+                {% endif %}
                 {% endif %}
             </div>
         </div>

@@ -9,12 +9,13 @@
 </head>
 <body>
     <header>
-        <h1>Task Manager</h1>
+        <h1><a href="{% url 'HomePage' %}">Task Manager</a></h1>
         <ul>
-            <li><a href="#">Мои посты</a></li>
-            <li><a href="#">Мои запросы</a></li>
+            <li><a href="{% url 'MyTasks' %}">Мои посты</a></li>
+            <li><a href="{% url 'MyRequests' %}">Мои запросы</a></li>
+            <li><a href="{% url 'Confirm' %}">Выполненные задания</a></li>
             <li><a href="{% url 'AddTask' %}">Добавить пост</a></li>
-            <li><a href="#">Уведомления</a></li>
+            <li><a href="{% url 'Messages' %}">Уведомления</a></li>
             {% if not user.is_authenticated%}
             <li><a href="{% url 'Registration'%}">Регистрация</a></li>
             <li><a href="{% url 'Login' %}">Войти</a></li>
@@ -25,6 +26,11 @@
     </header>
 {% block content %}
 {% endblock %}
+    {% if page_obj.has_other_pages %}
+    {% for p in paginator.page_range %}
+        <a href="?page={{p}}">{{p}}</a>
+    {% endfor %}
+{% endif %}
     <footer>
         &copy; 2023 Task Manager App
     </footer>

@@ -10,10 +10,13 @@
                 <p> deadline: </p>
                 <date>{{ task.deadline }}</date>
                 <div class="buttons">
-                    <button>Читать дальше</button>
+                    {% if not task.status.slug == "zavershil" %}
                     <a href = "{{ task.get_update_url }}">Редактировать</a>
                     <button>Удалить</button>
-                    <button>Завершил</button>
+                    {% if user == task.receiver %}
+                    <a href = "{{ task.confirm_task }}">Завершил</a>
+                    {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>

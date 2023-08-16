@@ -32,15 +32,22 @@ class Task(models.Model):
         return reverse('TaskView',kwargs={"task_slug":self.slug})
     def get_update_url(self):
         return reverse('ChangeTask',kwargs={"task_slug":self.slug})
+    def confirm_task(self):
+        self.status = Status.objects.get(slug="zavershil")
+        self.save()
+        msg = Message.objects.create(author = self.receiver,receiver = self.author,task = Task.objects.get(slug=self.slug),status = Status.objects.get(slug="zavershil"))
+        msg.save()
+        return reverse("HomePage")
 class Status(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255,db_index=True,unique=True)
     def __str__(self):
         return self.name
+
 class Message(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,related_name="message_sender")
     receiver = models.ForeignKey(User, on_delete=models.CASCADE,related_name="message_receiver")
     task = models.ForeignKey("Task",on_delete=models.CASCADE)
     status = models.ForeignKey("Status",on_delete=models.CASCADE)
     def __str__(self):
-        return self.send.username + "to" + self.receive.username
+        return self.author.username + " to " + self.receiver.username
