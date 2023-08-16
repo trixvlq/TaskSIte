@@ -30,6 +30,8 @@ class Task(models.Model):
         super().save(*args, **kwargs)
     def get_absolute_url(self):
         return reverse('TaskView',kwargs={"task_slug":self.slug})
+    def get_update_url(self):
+        return reverse('ChangeTask',kwargs={"task_slug":self.slug})
 class Status(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255,db_index=True,unique=True)

@@ -2,14 +2,16 @@
 {% block content %}
 <main>
         <div class="container">
-            <h2>Детали задания</h2>
+            <h2>Детали задания от {{ task.author }} для {{ task.receiver }}</h2>
             <div class="task">
-                <h3>Название задания</h3>
-                <p>Описание задания...</p>
-                <date>Дата создания: 2023-08-14</date>
+                <h3>{{ task.name }}</h3>
+                <p>{{ task.description }}...</p>
+                <date>{{task.date}}</date>
+                <p> deadline: </p>
+                <date>{{ task.deadline }}</date>
                 <div class="buttons">
                     <button>Читать дальше</button>
-                    <button>Редактировать</button>
+                    <a href = "{{ task.get_update_url }}">Редактировать</a>
                     <button>Удалить</button>
                     <button>Завершил</button>
                 </div>
