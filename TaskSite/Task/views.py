@@ -5,7 +5,7 @@ from datetime import datetime
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.utils.text import slugify
 from django.db.models import Q
 from .forms import TaskForm
@@ -29,7 +29,11 @@ class index(ListView):
 #         'tasks':tasks
 #     }
 #     return render(request,"index.html",context=context)
-
+class ChangeTask(UpdateView):
+    model = Task
+    template_name = "update_task.html"
+    form_class = TaskForm
+    slug_url_kwarg = "task_slug"
 class CreateTask(LoginRequiredMixin,CreateView):
     model = Task
     form_class = TaskForm
